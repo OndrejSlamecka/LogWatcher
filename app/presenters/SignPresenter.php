@@ -10,11 +10,13 @@ class SignPresenter extends BasePresenter
         $form->addPassword('password', 'Password:')
                 ->setRequired('Please provide a password.');
 
-        $form->addCheckbox('remember', 'Remember me');
+        $form->addCheckbox('remember', 'Keep me signed in');
 
         $form->addSubmit('send', 'Sign in');
 
         $form->onSuccess[] = callback($this, 'signInFormSubmitted');
+
+        $form->setDefaults(array('remember'=>true));
         return $form;
     }
 
