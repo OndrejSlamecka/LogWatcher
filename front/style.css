@@ -9,6 +9,8 @@ header{height: 1em; padding: 0 0 .8em; margin: 0 0 .8em; border-bottom: 2px soli
 footer{position: absolute; bottom: 0; right: 0; font-size: .8em; color: #333 }
 
 /* General */
+ul.error{ margin: 1em 0 }
+
 a{padding: .2em}
 a.delete{color: red }
 a.delete:hover{background: red; color: white; border-radius: 3px }
@@ -19,6 +21,9 @@ img#loader{display: none; vertical-align: middle }
 span.right{float: right }
 
 /* Content */
+h1{margin: 1em 0; font-size: 1.5em; color: #222; }
+table input{ margin: .3em }
+
 table#files{width: 100% }
 table#files th:first-child{width: 50% }
 table#files th{width: 25% }
