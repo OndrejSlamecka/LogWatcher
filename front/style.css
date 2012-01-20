@@ -40,3 +40,4 @@ table#files th:first-child{width: 50% }
 table#files th{width: 25% }
 table#files td:first-child{text-align: left }
 table#files td{text-align: center }
+table#files a:visited{color: #800080 }
