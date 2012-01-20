@@ -30,6 +30,10 @@ $input = file_get_contents('php://input');
 $input = json_decode($input, true);
 if (isset($input['application_update']) && $input['application_update'] === $container->parameters['remoteCallKey']) {
     $container->getService('temporaryFiles')->remove();
+
+    // Make cache dir again (0777 mode is default)
+    mkdir($container->getService('temporaryFiles')->getDirectory() . '/cache');
+
     print('SUCCESS');
     die;
 }

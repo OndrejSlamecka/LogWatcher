@@ -24,6 +24,11 @@ class File extends \Nette\Object
         $this->directory = realpath($directory);
     }
 
+    public function getDirectory()
+    {
+        return $this->directory;
+    }
+
     /**
      * Returns Nette\Utils\Finder or single file if given $filename
      * @param string $name
