@@ -1,4 +1,5 @@
 <?php
+
 /**
  * LogWatcher
  *
@@ -7,7 +8,6 @@
  *
  * License can be found in license.txt file located in the root folder.
  */
-
 use Nette\Utils\Strings;
 
 class LogPresenter extends BasePresenter
@@ -30,7 +30,18 @@ class LogPresenter extends BasePresenter
         $this->setLayout(FALSE);
         Nette\Diagnostics\Debugger::$bar = FALSE;
 
-        $this->template->file = $this->getService('logs')->find($id);
+        $file = $this->getService('logs')->find($id);
+
+        // Plaintext files deserve special treatmenet
+        $isPlaintext = $this->getService('logs')->isPlaintext($id);
+
+        if ($isPlaintext) {
+            $file = PlaintextLogProcessor::process($this, $file);
+        }
+
+        $this->template->isPlaintext = $isPlaintext;
+        $this->template->filename = $id;
+        $this->template->file = $file;
     }
 
     public function renderDefault()

@@ -71,4 +71,25 @@ class File extends \Nette\Object
         }
     }
 
+    public function isPlaintext($id)
+    {
+        $isPlaintext = false;
+
+        // If ends with .html, it is not plain text
+        if (!\Nette\Utils\Strings::endsWith($id, '.html')) {
+
+            // Now we consider it is a plaintext, but lets get sure with additional fileinfo check
+            $isPlaintext = true;
+
+            $filepath = realpath($this->directory . '/' . $id);
+            $finfo = new \finfo(FILEINFO_MIME);
+            if ($finfo) {
+                if (!$finfo->file($filepath) === 'text/plain')
+                    $isPlaintext = false;
+            }
+        }
+
+        return $isPlaintext;
+    }
+
 }
