@@ -12,13 +12,19 @@ footer{position: absolute; bottom: 0; right: 0; font-size: .8em; color: #333 }
 h1{margin: 1em 0; font-size: 1.5em; color: #222 }
 
 div.flash{padding: .6em .8em; background: #C3D9FF }
-ul.error{margin: 1em 0; color: #FF1A00 }
+ul.error{margin: 1em 0; font-weight: bold; color: #FF1A00 }
 
 a{padding: .2em}
 a:hover{text-decoration: none}
 a:visited{color: blue }
 a.delete{color: red }
 a.delete:hover{border-radius: 3px; background: red; color: white }
+
+table.data tr.even{background: #EEEEEE }
+table.data tbody tr:hover{background: #F9F7ED }
+table.data td, table.data th{padding: .5em; border: 1px solid #ccc }
+
+input[type="submit"]{padding: .5em .8em }
 
 /* Header */
 a#logo{}
@@ -34,7 +40,3 @@ table#files th:first-child{width: 50% }
 table#files th{width: 25% }
 table#files td:first-child{text-align: left }
 table#files td{text-align: center }
-
-table.data tr.even{background: #EEEEEE }
-table.data tbody tr:hover{background: #F9F7ED }
-table.data td, table.data th{padding: .5em; border: 1px solid #ccc }
