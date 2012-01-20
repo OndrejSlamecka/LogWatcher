@@ -8,8 +8,8 @@ This tool will solve this. It can also be used to remove temporary files (see *a
 ### Installation
 
 * Download LogWatcher from Github
-* Place it in a *www/logwatcher/* repository (where *www* is your document root)
-* Set up config.neon
+* Place it in the *www/logwatcher/* directory (where *www* is your document root)
+* Configure *app/config.neon*
 * Deploy and open http://yourapp.com/logwatcher - debug like a boss
 
 ### License
