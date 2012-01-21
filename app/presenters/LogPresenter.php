@@ -1,13 +1,13 @@
 <?php
-
 /**
  * LogWatcher
  *
  * @link https://github.com/OndrejSlamecka/LogWatcher
- * @copyright (c) 2011 Ondrej Slamecka (http://www.slamecka.cz)
+ * @copyright (c) 2012 Ondrej Slamecka (http://www.slamecka.cz)
  *
  * License can be found in license.txt file located in the root folder.
  */
+
 use Nette\Utils\Strings;
 
 class LogPresenter extends BasePresenter

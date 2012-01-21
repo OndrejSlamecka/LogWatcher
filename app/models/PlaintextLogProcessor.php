@@ -1,13 +1,13 @@
 <?php
-
 /**
  * LogWatcher
  *
  * @link https://github.com/OndrejSlamecka/LogWatcher
- * @copyright (c) 2011 Ondrej Slamecka (http://www.slamecka.cz)
+ * @copyright (c) 2012 Ondrej Slamecka (http://www.slamecka.cz)
  *
  * License can be found in license.txt file located in the root folder.
  */
+
 use Nette\Utils\Strings;
 
 class PlaintextLogProcessor extends Nette\Object
@@ -24,7 +24,7 @@ class PlaintextLogProcessor extends Nette\Object
         $chunks = explode("\n", $text);
 
         foreach ($chunks as $key => $chunk) {
-            // Make links from URLS
+            // Make links from URLs
             $chunk = Strings::replace($chunk, '~([\w-]+://?|www[.])[^\s()<>]+(?:\([\w\d]+\)|([^[:punct:]\s]|/))~', '<a href="$0">$0</a>');
 
             // Wrap domain part into small tag
