@@ -31,7 +31,7 @@ class PlaintextLogProcessor extends Nette\Object
             $chunk = Strings::replace($chunk, '(([\w-]+://?|www[.])[^/]+)', '<small>$0</small>');
 
             // Make links from references to exceptions logs
-            $chunk = Strings::replace($chunk, "~exception \d{4}-\d{2}-\d{2} \d{2}-\d{2}-\d{2} [\w\d]{32}\.html~", function($match) use($parent) {
+            $chunk = Strings::replace($chunk, "~exception[\s-]\d{4}-\d{2}-\d{2}[\s-]\d{2}-\d{2}-\d{2}[\s-][\w\d]{32}\.html~", function($match) use($parent) {
                                 $match = $match[0];
                                 $link = $parent->link('Log:read', array(urlencode($match)));
                                 return '<a href="' . $link . '">' . $match . '</a>';
