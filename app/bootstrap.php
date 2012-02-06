@@ -28,7 +28,20 @@ $container = $configurator->createContainer();
 // Cache clearing script called from remote; See https://gist.github.com/1622669
 $input = file_get_contents('php://input');
 $input = json_decode($input, true);
-if (isset($input['application_update']) && $input['application_update'] === $container->parameters['remoteCallKey']) {
+if (isset($input['application_update'])) {
+
+    // Authenticate
+    $authenticator = $container->getByType('Nette\Security\SimpleAuthenticator');
+    $credentials = array('remote', $input['application_update']);
+
+    try {
+        $authenticator->authenticate($credentials);
+    } catch (\Nette\Security\AuthenticationException $e) {
+        print('LOGIN FAILURE '. $e->getMessage());
+        die;
+    }
+
+    // Clear the app
     $container->getService('temporaryFiles')->remove();
 
     // Make cache dir again (0777 mode is default)

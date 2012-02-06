@@ -4,13 +4,16 @@
 # If you don't protect this directory from direct web access, anybody will be able to see your passwords.
 # http://nette.org/security-warning
 #
+nette:
+        security:
+                users:
+                        default: randompassword # Password for logging into this app
+                        remote: somelongstring  # See https://gist.github.com/1622669 and app/bootstrap.php
+
 parameters:
-        password: randompassword # Password for logging into this app
         logDirectory: ../../log # path from bootstrap.php to directory with watched log files
         tempDirectory: ../../temp # path from bootstrap.php to directory with watched temp files
-        remoteCallKey: somelongstring # See https://gist.github.com/1622669 and app/bootstrap.php
 
 services:
-        authenticator: Authenticator(%password%, %remoteCallKey%)
         logs: Repository\File(%logDirectory%)
         temporaryFiles: Repository\File(%tempDirectory%)

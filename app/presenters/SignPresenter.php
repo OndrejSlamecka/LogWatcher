@@ -29,7 +29,7 @@ class SignPresenter extends BasePresenter
             } else {
                 $this->getUser()->setExpiration('+ 20 minutes', TRUE);
             }
-            $this->getUser()->login($values->username, $values->password);
+            $this->getUser()->login('default', $values->password);
             $this->redirect('Log:');
         } catch (Nette\Security\AuthenticationException $e) {
             $form->addError($e->getMessage());
