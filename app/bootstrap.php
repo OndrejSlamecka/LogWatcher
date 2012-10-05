@@ -1,7 +1,7 @@
 <?php
 
 use Nette\Diagnostics\Debugger,
-    Nette\Application\Routers\Route;
+    Nette\Application\Routers\SimpleRouter;
 
 // Load libraries
 $nettePaths = array(
@@ -64,7 +64,7 @@ if (isset($input['application_update'])) {
 }
 
 // Setup router
-$container->router[] = new Route('<presenter>/<action>[/<id>]', 'Log:default');
+$container->router[] = new SimpleRouter('Log:default', $container->httpRequest->isSecured() ? SimpleRouter::SECURED : 0);
 
 
 // Run the application!
