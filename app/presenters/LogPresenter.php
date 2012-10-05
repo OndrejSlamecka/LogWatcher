@@ -36,6 +36,7 @@ class LogPresenter extends BasePresenter
         $isPlaintext = $this->context->logs->isPlaintext($id);
 
         if ($isPlaintext) {
+            $this->setView('plain');
             $file = PlaintextLogProcessor::process($this, $file);
         }
 
