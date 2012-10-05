@@ -4,7 +4,7 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
 /**
  * Author: Ondrej Slamecka, www.slamecka.cz
  */
-body{width: 700px; margin: 1em auto; font-family: sans-serif }
+body{ margin: 1em auto; font-family: sans-serif }
 header{height: 1em; padding: 0 0 .8em; margin: 0 0 .8em; border-bottom: 2px solid #999 }
 footer{position: absolute; bottom: 0; right: 0; font-size: .8em; color: #333 }
 

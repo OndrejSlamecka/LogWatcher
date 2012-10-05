@@ -1,10 +1,22 @@
 <?php
 
 use Nette\Diagnostics\Debugger,
-    Nette\Application\Routers\Route;
+    Nette\Application\Routers\SimpleRouter;
 
 // Load libraries
-require __DIR__ . '/../libs/Nette/loader.php';
+$nettePaths = array(
+	'/../../../libs/nette/nette/Nette/loader.php',  // i'm in www/ dir
+	'/../../libs/nette/nette/Nette/loader.php',     // i'm in doc root
+	'/../libs/Nette/loader.php',                    // my own nette
+);
+foreach ($nettePaths as $path) {
+	if (file_exists(__DIR__ . $path)) {
+		require __DIR__ . $path; break;
+	}
+}
+if (!defined('NETTE')) {
+	throw new Exception("Nette not found");
+}
 
 // Enable Nette Debugger for error visualisation & logging
 Debugger::$logDirectory = FALSE; // Logging in app for viewing logs? // For debugging: __DIR__.'/../logs';
@@ -18,11 +30,11 @@ $configurator->setTempDirectory(__DIR__ . '/../temp');
 // RobotLoad all classes
 $configurator->createRobotLoader()
         ->addDirectory(__DIR__)
-        ->addDirectory(__DIR__ . '/../libs')
         ->register();
 
 // Create Dependency Injection container from config.neon file
 $configurator->addConfig(__DIR__ . '/config.neon', FALSE);
+if (file_exists($localConfig = __DIR__ . '/config.local.neon')) $configurator->addConfig($localConfig, FALSE);
 $container = $configurator->createContainer();
 
 // Cache clearing script called from remote; See https://gist.github.com/1622669
@@ -52,7 +64,7 @@ if (isset($input['application_update'])) {
 }
 
 // Setup router
-$container->router[] = new Route('<presenter>/<action>[/<id>]', 'Log:default');
+$container->router[] = new SimpleRouter('Log:default', $container->httpRequest->isSecured() ? SimpleRouter::SECURED : 0);
 
 
 // Run the application!
