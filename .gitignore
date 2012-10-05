@@ -1,3 +1,4 @@
 temp/*
 !temp/sessions/*
 !temp/.htaccess
+app/config.local.neon

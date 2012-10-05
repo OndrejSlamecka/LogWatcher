@@ -34,6 +34,7 @@ $configurator->createRobotLoader()
 
 // Create Dependency Injection container from config.neon file
 $configurator->addConfig(__DIR__ . '/config.neon', FALSE);
+if (file_exists($localConfig = __DIR__ . '/config.local.neon')) $configurator->addConfig($localConfig, FALSE);
 $container = $configurator->createContainer();
 
 // Cache clearing script called from remote; See https://gist.github.com/1622669
