@@ -4,7 +4,19 @@ use Nette\Diagnostics\Debugger,
     Nette\Application\Routers\Route;
 
 // Load libraries
-require __DIR__ . '/../libs/Nette/loader.php';
+$nettePaths = array(
+	'/../../../libs/nette/nette/Nette/loader.php',  // i'm in www/ dir
+	'/../../libs/nette/nette/Nette/loader.php',     // i'm in doc root
+	'/../libs/Nette/loader.php',                    // my own nette
+);
+foreach ($nettePaths as $path) {
+	if (file_exists(__DIR__ . $path)) {
+		require __DIR__ . $path; break;
+	}
+}
+if (!defined('NETTE')) {
+	throw new Exception("Nette not found");
+}
 
 // Enable Nette Debugger for error visualisation & logging
 Debugger::$logDirectory = FALSE; // Logging in app for viewing logs? // For debugging: __DIR__.'/../logs';
