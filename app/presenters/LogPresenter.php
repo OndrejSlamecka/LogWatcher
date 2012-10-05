@@ -55,6 +55,11 @@ class LogPresenter extends BasePresenter
             $fullname = $file->getFilename();
             if (Strings::contains($file->getFilename(), 'exception')) {
                 $name = Strings::substring($fullname, 30, 32);
+
+                if (preg_match('~<title>(.+)</title><!-- (.+) -->~', $contents = file_get_contents($file->getPathname()), $match)) {
+                    $name = substr($match[2], 0, 50) . " - $name";
+                }
+
             } else {
                 $name = $fullname;
             }
