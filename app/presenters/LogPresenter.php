@@ -20,8 +20,12 @@ class LogPresenter extends BasePresenter
 
     public function handleDelete($id)
     {
-        $this->getService('logs')->remove($id);
-        $this->invalidateControl();
+        $this->context->logs->remove($id);
+        if ($this->action === 'read') {
+            $this->redirect('default');
+        } else {
+            $this->invalidateControl();
+        }
     }
 
     public function renderRead($id)
@@ -30,13 +34,16 @@ class LogPresenter extends BasePresenter
         $this->setLayout(FALSE);
         Nette\Diagnostics\Debugger::$bar = FALSE;
 
-        $file = $this->getService('logs')->find($id);
+        $file = $this->context->logs->find($id);
 
         // Plaintext files deserve special treatmenet
-        $isPlaintext = $this->getService('logs')->isPlaintext($id);
+        $isPlaintext = $this->context->logs->isPlaintext($id);
 
         if ($isPlaintext) {
+            $this->setView('plain');
             $file = PlaintextLogProcessor::process($this, $file);
+        } else {
+            $file = LogScreenFilter::process($this, $file, $id);
         }
 
         $this->template->isPlaintext = $isPlaintext;
@@ -46,7 +53,7 @@ class LogPresenter extends BasePresenter
 
     public function renderDefault()
     {
-        $files = $this->getService('logs')->find();
+        $files = $this->context->logs->find();
 
         // Fetch data from files
         $output = array();
@@ -55,6 +62,11 @@ class LogPresenter extends BasePresenter
             $fullname = $file->getFilename();
             if (Strings::contains($file->getFilename(), 'exception')) {
                 $name = Strings::substring($fullname, 30, 32);
+
+                if (preg_match('~<title>(.+)</title><!-- (.+) -->~', $contents = file_get_contents($file->getPathname()), $match)) {
+                    $name = substr($match[2], 0, 50) . " - $name";
+                }
+
             } else {
                 $name = $fullname;
             }
