@@ -21,7 +21,11 @@ class LogPresenter extends BasePresenter
     public function handleDelete($id)
     {
         $this->context->logs->remove($id);
-        $this->invalidateControl();
+        if ($this->action === 'read') {
+            $this->redirect('default');
+        } else {
+            $this->invalidateControl();
+        }
     }
 
     public function renderRead($id)
@@ -38,6 +42,8 @@ class LogPresenter extends BasePresenter
         if ($isPlaintext) {
             $this->setView('plain');
             $file = PlaintextLogProcessor::process($this, $file);
+        } else {
+            $file = LogScreenFilter::process($this, $file, $id);
         }
 
         $this->template->isPlaintext = $isPlaintext;
