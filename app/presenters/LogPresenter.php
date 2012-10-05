@@ -20,7 +20,7 @@ class LogPresenter extends BasePresenter
 
     public function handleDelete($id)
     {
-        $this->getService('logs')->remove($id);
+        $this->context->logs->remove($id);
         $this->invalidateControl();
     }
 
@@ -30,10 +30,10 @@ class LogPresenter extends BasePresenter
         $this->setLayout(FALSE);
         Nette\Diagnostics\Debugger::$bar = FALSE;
 
-        $file = $this->getService('logs')->find($id);
+        $file = $this->context->logs->find($id);
 
         // Plaintext files deserve special treatmenet
-        $isPlaintext = $this->getService('logs')->isPlaintext($id);
+        $isPlaintext = $this->context->logs->isPlaintext($id);
 
         if ($isPlaintext) {
             $file = PlaintextLogProcessor::process($this, $file);
@@ -46,7 +46,7 @@ class LogPresenter extends BasePresenter
 
     public function renderDefault()
     {
-        $files = $this->getService('logs')->find();
+        $files = $this->context->logs->find();
 
         // Fetch data from files
         $output = array();
